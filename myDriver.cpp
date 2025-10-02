@@ -4,44 +4,44 @@
 using namespace std;
 
 int main() {
-    // Create list of strings
-    DoublyList<string> slist;
-    slist.append("Apple");
-    slist.append("Banana");
-    slist.append("Cherry");
-    cout << "Initial string list: " << slist;
-
-    // Insert
-    slist.insert(1, "Mango");
-    cout << "After inserting Mango at pos 1: " << slist;
-
-    // Remove
-    slist.remove(2);
-    cout << "After removing element at pos 2: " << slist;
-
-    // Replace
-    slist.replace(1, "Grape");
-    cout << "After replacing element at pos 1 with Grape: " << slist;
-
-    // Search
-    cout << "Searching for Cherry: " << (slist.search("Cherry") ? "Found" : "Not Found") << endl;
-    cout << "Searching for Mango: " << (slist.search("Mango") ? "Found" : "Not Found") << endl;
-
-    // Get element
-    cout << "Element at pos 1: " << slist.getElement(1) << endl;
-
-    // Length check
-    cout << "Length of string list: " << slist.getLength() << endl;
-
     // Test with integers
-    DoublyList<int> ilist;
-    ilist.append(10);
-    ilist.append(20);
-    ilist.append(30);
-    ilist.insert(1, 15);
-    ilist.replace(2, 25);
-    cout << "Integer list: " << ilist;
-    cout << "Search for 25: " << (ilist.search(25) ? "Found" : "Not Found") << endl;
+    DoublyList<int> intList;
+    intList.append(10);
+    intList.append(20);
+    intList.append(30);
+    cout << "Initial int list: " << intList;
+
+    intList.insert(1, 15);
+    cout << "After insert at position 1: " << intList;
+
+    intList.remove(2);
+    cout << "After removing position 2: " << intList;
+
+    intList.replace(1, 99);
+    cout << "After replacing position 1 with 99: " << intList;
+
+    cout << "Search for 99: " << (intList.search(99) ? "found" : "not found") << endl;
+    cout << "Length of intList: " << intList.getLength() << endl;
+
+    // Test with strings
+    DoublyList<string> strList;
+    strList.append("Alpha");
+    strList.append("Beta");
+    strList.append("Gamma");
+    cout << "\nInitial string list: " << strList;
+
+    strList.insert(0, "Start");
+    strList.insert(4, "End");
+    cout << "After inserting at beginning and end: " << strList;
+
+    strList.remove(2);
+    cout << "After removing position 2: " << strList;
+
+    strList.replace(2, "Delta");
+    cout << "After replacing position 2 with Delta: " << strList;
+
+    cout << "Search for Gamma: " << (strList.search("Gamma") ? "found" : "not found") << endl;
+    cout << "Length of strList: " << strList.getLength() << endl;
 
     return 0;
 }

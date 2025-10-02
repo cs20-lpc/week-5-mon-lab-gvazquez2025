@@ -67,6 +67,9 @@ class DoublyList : public List<T> {
         // check if an element exists that contains the given value (argument)
         virtual bool search(const T&) const;
 
+        // return the node at the given position (argument)
+        Node* getNode(int) const;
+
         // overloaded stream insertion operator to make printing easier
         template <typename U>
         friend ostream& operator<<(ostream&, const DoublyList<U>&);

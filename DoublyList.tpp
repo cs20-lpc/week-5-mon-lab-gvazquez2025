@@ -1,4 +1,16 @@
 template <typename T>
+typename DoublyList<T>::Node* DoublyList<T>::getNode(int position) const {
+    if (position < 0 || position >= this->length) {
+        throw string("getNode: error, position out of bounds");
+    }
+    Node* curr = header->next;
+    for (int i = 0; i < position; i++) {
+        curr = curr->next;
+    }
+    return curr;
+}
+
+template <typename T>
 void DoublyList<T>::append(const T& elem) {
     Node* n = new Node(elem, trailer, trailer->prev);
     trailer->prev->next = n;
@@ -8,43 +20,30 @@ void DoublyList<T>::append(const T& elem) {
 
 template <typename T>
 T DoublyList<T>::getElement(int position) const {
-    if (position < 0 || position >= this->length) {
-        throw string("getElement: position out of bounds");
-    }
-    Node* curr = header->next;
-    for (int i = 0; i < position; i++) {
-        curr = curr->next;
-    }
-    return curr->value;
+    return getNode(position)->value;
 }
 
 template <typename T>
 void DoublyList<T>::insert(int position, const T& elem) {
     if (position < 0 || position > this->length) {
-        throw string("insert: position out of bounds");
+        throw string("insert: error, position out of bounds");
     }
-    Node* curr = header;
-    for (int i = 0; i < position; i++) {
-        curr = curr->next;
-    }
-    Node* n = new Node(elem, curr->next, curr);
-    curr->next->prev = n;
-    curr->next = n;
+    Node* succ = (position == this->length) ? trailer : getNode(position);
+    Node* pred = succ->prev;
+    Node* n = new Node(elem, succ, pred);
+    pred->next = n;
+    succ->prev = n;
     this->length++;
 }
 
 template <typename T>
 void DoublyList<T>::remove(int position) {
-    if (position < 0 || position >= this->length) {
-        throw string("remove: position out of bounds");
-    }
-    Node* curr = header->next;
-    for (int i = 0; i < position; i++) {
-        curr = curr->next;
-    }
-    curr->prev->next = curr->next;
-    curr->next->prev = curr->prev;
-    delete curr;
+    Node* target = getNode(position);
+    Node* pred = target->prev;
+    Node* succ = target->next;
+    pred->next = succ;
+    succ->prev = pred;
+    delete target;
     this->length--;
 }
 
@@ -62,12 +61,5 @@ bool DoublyList<T>::search(const T& elem) const {
 
 template <typename T>
 void DoublyList<T>::replace(int position, const T& elem) {
-    if (position < 0 || position >= this->length) {
-        throw string("replace: position out of bounds");
-    }
-    Node* curr = header->next;
-    for (int i = 0; i < position; i++) {
-        curr = curr->next;
-    }
-    curr->value = elem;
+    getNode(position)->value = elem;
 }
